@@ -14,7 +14,7 @@ def is_prime(num) -> bool:
 
 
 def prime_sieve(limit):
-    prime = [True for i in range(limit + 1)]
+    prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
     while p ** 2 <= limit:
