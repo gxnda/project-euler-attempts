@@ -888,11 +888,47 @@ def euler_38():
     What is the largest 1 to 9 pandigital 9-digit number that can be formed as the concatenated product of an integer
     with (1,2, ... , n) where n > 1?
     """
-    pass
+    all_pandigital = set()
+    for i in range(1, 10000):
+        num = ""
+        n = 1
+        while len(num) <= len("123456789"):
+            num += str(i * n)
+            if n > 1 and is_pandigital(num):
+                all_pandigital.add(num)
+            n += 1
+    # that was easier than i thought
+    return max(all_pandigital)  # 932718654 in 0.0219s
+
+
+def euler_39():
+    """
+    Integer right triangles
+    Problem 39
+    If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there are exactly three solutions for p = 120.
+    {20,48,52}, {24,45,51}, {30,40,50}
+    For which value of p ≤ 1000, is the number of solutions maximised?
+
+    note: for any integers a & b, sides a^2 - b^2 and 2ab create integer side length a^2 + b^2
+    """
+    max_count = 0
+    max_p = 0
+    all_triples = generate_pythagorean_triples(1000)
+    for p in range(1001):
+        count = 0
+        for triple in all_triples:
+            if sum(triple) == p:
+                count += 1
+        if count > max_count:
+            max_count = count
+            max_p = p
+    return max_p
+    # 840
+    # 0.190s
 
 
 if __name__ == "__main__":
     start = time()
-    print(euler_37())
+    print(euler_39())
     end = time()
     print(end-start)

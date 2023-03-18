@@ -1,4 +1,5 @@
 from itertools import permutations
+from math import sqrt, ceil
 
 
 def is_prime(num) -> bool:
@@ -72,3 +73,27 @@ def is_pandigital(string: str) -> bool:
     if set(string) == set("123456789") and len(string) == len("123456789"):
         return True
     return False
+
+
+def generate_pythagorean_triples(limit: int):
+
+    """https://www.youtube.com/watch?v=QJYmyhnaaek"""
+    # limit is the hypotenuse!!
+    triples = []
+    upper_bound_for_side = ceil(sqrt(limit))
+    for a in range(1, upper_bound_for_side):
+        for b in range(1, upper_bound_for_side):
+            if a**2 + b**2 <= limit:
+                abc = [abs(a**2 - b**2), 2 * a * b, a ** 2 + b ** 2]
+                scalar = 1
+                new_abc = [1, 1, 1]
+                while new_abc[2] <= limit:
+                    new_abc = [i * scalar for i in abc]
+                    if new_abc not in triples and 0 not in new_abc:
+                        triples.append(new_abc)
+                    scalar += 1
+    return triples
+
+
+def get_champerowne_constant_index(index: int):
+    pass
