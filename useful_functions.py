@@ -69,8 +69,12 @@ def get_all_rotations(string: str) -> list:
     return list(rotations)
 
 
-def is_pandigital(string: str) -> bool:
-    if set(string) == set("123456789") and len(string) == len("123456789"):
+def is_pandigital(string: str, comparison_string="123456789") -> bool:
+    length = len(str(string))
+    comparison_string = ""
+    for i in range(1, length + 1):
+        comparison_string += str(i)
+    if set(string) == set(comparison_string) and len(string) == len(comparison_string):
         return True
     return False
 
@@ -78,7 +82,6 @@ def is_pandigital(string: str) -> bool:
 def generate_pythagorean_triples(limit: int):
 
     """https://www.youtube.com/watch?v=QJYmyhnaaek"""
-    # limit is the hypotenuse!!
     triples = []
     upper_bound_for_side = ceil(sqrt(limit))
     for a in range(1, upper_bound_for_side):
@@ -93,7 +96,3 @@ def generate_pythagorean_triples(limit: int):
                         triples.append(new_abc)
                     scalar += 1
     return triples
-
-
-def get_champerowne_constant_index(index: int):
-    pass
