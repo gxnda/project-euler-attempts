@@ -1011,12 +1011,8 @@ def euler_40():
 
 
 def euler_41():
-    n = 2142
-    while True:
-        if is_prime(n) and is_pandigital(n):
-            print(n)
-        n += 1
-
+    start = time()
+    primes = prime_sieve_and_pandigital(1_000_000_000)
 
 if __name__ == "__main__":
     start = time()
