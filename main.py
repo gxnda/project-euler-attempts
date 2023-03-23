@@ -1011,12 +1011,49 @@ def euler_40():
 
 
 def euler_41():
-    start = time()
-    primes = prime_sieve_and_pandigital(1_000_000_000)
+    def generate_all_pandigitals(string: str):
+        all_permutations = sorted(get_all_permutations(string), reverse=True)
+        return [int(i) for i in all_permutations]
+
+    # all 9 and 8 digit pandigitals are multiples of 3
+    arr = generate_all_pandigitals("1234567")
+    for i in arr:
+        if is_prime(i):
+            print("PRIME:", i)
+            exit()
+
+
+def euler_42():
+    """
+    Coded triangle numbers
+    Problem 42
+    The nth term of the sequence of triangle numbers is given by, tn = ½n(n+1); so the first ten triangle numbers are:
+    1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
+    By converting each letter in a word to a number corresponding to its alphabetical position and 
+    adding these values we form a word value. For example, the word value for SKY is 19 + 11 + 25 = 55 = t10. 
+    If the word value is a triangle number then we shall call the word a triangle word.
+    
+    Using words.txt (right click and 'Save Link/Target As...'), a 16K text file containing nearly two-thousand 
+    common English words, how many are triangle words?
+    """
+    with open("p042_words.txt", "rt") as file:
+        text = file.read()
+    arr = text.strip('"').split('","')
+    max_length = max([len(word) for word in arr])
+    count = 0
+    triangle_numbers = generate_triangle_numbers(max_length * 26)
+    for word in arr:
+        total = sum([get_place_in_alphabet(str(char)) for char in word])
+        if total in triangle_numbers:
+            count += 1
+    return count
+    #162
+    #0.015993118286132812
+
 
 if __name__ == "__main__":
     start = time()
-    print(euler_41())
+    print(euler_42())
     end = time()
     print(end - start)
 

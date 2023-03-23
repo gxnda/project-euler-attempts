@@ -116,3 +116,19 @@ def generate_pythagorean_triples(limit: int):
                         triples.append(new_abc)
                     scalar += 1
     return triples
+
+
+def get_place_in_alphabet(char: str):
+    char = char.lower()
+    return ord(char) - 96
+
+
+def generate_triangle_numbers(limit: int) -> list:
+    i = 1
+    tri_num = []
+    increment_by = 2
+    while i <= limit:
+        tri_num.append(i)
+        i += increment_by
+        increment_by += 1
+    return tri_num
