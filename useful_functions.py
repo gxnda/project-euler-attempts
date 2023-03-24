@@ -7,7 +7,7 @@ def is_prime(num) -> bool:
     loop = 2
     if num < loop:
         return False
-    while loop ** 2 < num + 1:
+    while loop**2 < num + 1:
         if num % loop == 0:
             return False
         loop += 1
@@ -18,7 +18,7 @@ def prime_sieve(limit):
     prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
-    while p ** 2 <= limit:
+    while p**2 <= limit:
         print
         if prime[p]:
             for i in range(p * p, limit + 1, p):
@@ -35,7 +35,7 @@ def prime_sieve_and_pandigital(limit):
     prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
-    while p ** 2 <= limit:
+    while p**2 <= limit:
         print
         if prime[p]:
             for i in range(p * p, limit + 1, p):
@@ -47,7 +47,6 @@ def prime_sieve_and_pandigital(limit):
             finalised.append(i)
 
     return finalised  # returns list
-
 
 
 def get_factors_dict(num):
@@ -73,7 +72,9 @@ def get_factors(num) -> set:
 
 def get_all_permutations(string: str) -> list:
     # itertools coming in clutch
-    all_permutations = ["".join(i) for i in list(permutations(string, len(string)))]
+    all_permutations = [
+        "".join(i) for i in list(permutations(string, len(string)))
+    ]
     return all_permutations
 
 
@@ -94,20 +95,20 @@ def is_pandigital(string: str, comparison_string="123456789") -> bool:
     comparison_string = ""
     for i in range(1, length + 1):
         comparison_string += str(i)
-    if set(string) == set(comparison_string) and len(string) == len(comparison_string):
+    if set(string) == set(comparison_string) and len(string) == len(
+            comparison_string):
         return True
     return False
 
 
 def generate_pythagorean_triples(limit: int):
-
     """https://www.youtube.com/watch?v=QJYmyhnaaek"""
     triples = []
     upper_bound_for_side = ceil(sqrt(limit))
     for a in range(1, upper_bound_for_side):
         for b in range(1, upper_bound_for_side):
             if a**2 + b**2 <= limit:
-                abc = [abs(a**2 - b**2), 2 * a * b, a ** 2 + b ** 2]
+                abc = [abs(a**2 - b**2), 2 * a * b, a**2 + b**2]
                 scalar = 1
                 new_abc = [1, 1, 1]
                 while new_abc[2] <= limit:
@@ -133,15 +134,31 @@ def generate_triangle_numbers(limit: int) -> list:
         increment_by += 1
     return tri_num
 
+
 def is_pentagonal(num):
-    return True if (1/6)*(sqrt(24 * num + 1) + 1) % 1 == 0 else False
+    return True if (1 / 6) * (sqrt(24 * num + 1) + 1) % 1 == 0 else False
+
 
 def generate_pentagonal_numbers(limit):
     most_recent_num = 0
     i = 1
     nums = set()
     while most_recent_num < limit:
-        most_recent_num = (i * (3*i - 1)) // 2
+        most_recent_num = (i * (3 * i - 1)) // 2
         nums.add(most_recent_num)
         i += 1
     return sorted(nums)
+
+
+def is_triangular(num):
+    if (1 / 2) * (sqrt(8 * num + 1) - 1) % 1 == 0:
+        return True
+    else:
+        return False
+
+
+def is_hexagonal(num):
+    if ((1 / 4) * (1 + sqrt(8 * num + 1))) % 1 == 0:
+        return True
+    else:
+        return False
