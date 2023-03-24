@@ -162,3 +162,8 @@ def is_hexagonal(num):
         return True
     else:
         return False
+
+
+def get_distinct_prime_factors(num):
+    factors = [i for i in get_factors(num) if is_prime(i)]
+    return factors

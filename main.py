@@ -1148,23 +1148,63 @@ def euler_46():
     """
     Goldbach's other conjecture 
     Problem 46
-    It was proposed by Christian Goldbach that every odd composite number can be written as the sum of a prime and twice a square.
+    It was proposed by Christian Goldbach that every odd composite number can be written as the 
+    sum of a prime and twice a square.
     
-    9 = 7 + 2×1^2
-    15 = 7 + 2×2^2
-    21 = 3 + 2×3^2
-    25 = 7 + 2×3^2
-    27 = 19 + 2×2^2
-    33 = 31 + 2×1^2
+    9 = 7 + 2x1^2
+    15 = 7 + 2x2^2
+    21 = 3 + 2x3^2
+    25 = 7 + 2x3^2
+    27 = 19 + 2x2^2
+    33 = 31 + 2x1^2
     
     It turns out that the conjecture was false.
     
-    What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
     """
+
+    def follows_conjecture(num):
+        squares = set()
+        i = 0
+        while 2 * (i**2) < num:
+            squares.add(2 * (i ** 2))
+            i += 1
+        for sq in squares:
+            if is_prime(num - sq):
+                return True
+        return False
+    
+    i = 9
+    while True:
+        if not follows_conjecture(i):
+            return i
+        i += 2
+    #5777
+    #0.0468907356262207
+
+
+def euler_47():
+    i = 2
+    while True:
+        if len(get_distinct_prime_factors(i)) == 4:
+            if len(get_distinct_prime_factors(i + 1)) == 4:
+                if len(get_distinct_prime_factors(i + 2)) == 4:
+                    if len(get_distinct_prime_factors(i + 3)) == 4:
+                        print(i, get_distinct_prime_factors(i))
+                        print(i + 1, get_distinct_prime_factors(i + 1))
+                        print(i + 2, get_distinct_prime_factors(i + 2))
+                        print(i + 3, get_distinct_prime_factors(i + 3))
+                        return i
+        i += 1
+    #134043
+    #6.77611517906189
+
+
+def euler_48():
+    pass
 
 
 if __name__ == "__main__":
     start = time()
-    print(euler_45())
+    print(euler_47())
     end = time()
     print(end - start)
