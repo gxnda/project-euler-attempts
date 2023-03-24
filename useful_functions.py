@@ -132,3 +132,16 @@ def generate_triangle_numbers(limit: int) -> list:
         i += increment_by
         increment_by += 1
     return tri_num
+
+def is_pentagonal(num):
+    return True if (1/6)*(sqrt(24 * num + 1) + 1) % 1 == 0 else False
+
+def generate_pentagonal_numbers(limit):
+    most_recent_num = 0
+    i = 1
+    nums = set()
+    while most_recent_num < limit:
+        most_recent_num = (i * (3*i - 1)) // 2
+        nums.add(most_recent_num)
+        i += 1
+    return sorted(nums)
