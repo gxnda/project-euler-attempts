@@ -1289,19 +1289,19 @@ def euler_50():
     Which prime, below one-million, can be written as the sum of the most consecutive primes?
     """
     primes = sorted(prime_sieve(1_000_000))
-    sum = 0
+    total = 0
     for i in range(len(primes)):
-        if sum < 1_000_000:
-            sum += primes[i]
+        if total < 1_000_000:
+            total += primes[i]
             last_used_i = i
     
     i = -1
-    while not is_prime(sum) or sum > 1_000_000:
+    while not is_prime(total) or total > 1_000_000:
         i += 1
-        sum -= primes[i]
+        total -= primes[i]
         
-    #print(sum(primes[i: last_used_i]))
-    return sum, is_prime(sum)
+    print(sum(primes[i: last_used_i + 1]))
+    return total, is_prime(total)
 
 if __name__ == "__main__":
     system("cls")
