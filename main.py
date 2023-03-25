@@ -9,7 +9,7 @@ I finished snakify.org, so I knew nothing about variable naming et cetera.
 from useful_functions import *
 from math import sqrt, factorial, ceil, floor
 from time import time
-
+from os import system
 
 def euler_1():
     """Multiples of 3 or 5"""
@@ -1200,11 +1200,112 @@ def euler_47():
 
 
 def euler_48():
-    pass
+    def multiply_last_10_digits(num_1, num_2):
+        num_1 = num_1# % 10_000_000_000
+        num_2 = num_2# % 10_000_000_000
+        return (num_1 * num_2)# % 10_000_000_000
 
+    def self_power(num):
+        multipland = 1
+        for i in range(num):
+            multipland = multiply_last_10_digits(multipland, num)
+            multipland = multipland# % 10_000_000_000
+        return multipland
+
+    sum = 0
+    for i in range(1, 1001):
+        sum += self_power(i)
+        sum = sum# % 10_000_000_000
+    return str(sum)[-10:]
+    #9110846700
+    #0.16156768798828125
+        
+
+def euler_49():
+    """
+    Prime permutations
+    Problem 49
+    The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases 
+    by 3330, is unusual in two ways:
+
+    (i) each of the three terms are prime, and, 
+    (ii) each of the 4-digit numbers are permutations of one another.
+
+    There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, 
+    exhibiting this property, but there is one other 4-digit increasing sequence.
+    What 12-digit number do you form by concatenating the three terms in this sequence?
+    """
+
+    def permutations_that_are_prime(num):
+        permutations = get_all_permutations(str(num))
+        count = 0
+        nums = set()
+        for string in permutations:
+            if is_prime(int(string)) and len(string) == 4:
+                nums.add(int(string))
+        
+        return nums
+    
+    def has_constant_increase(set_of_nums):
+        arr = sorted(set_of_nums)
+        for i in range(len(arr)):
+            for j in range(i + 1,len(arr)):
+                for k in range(j + 1, len(arr)):
+                    difference = arr[j] - arr[i]
+                    if arr[k] - arr[j] == difference:
+                        return True, [arr[i], arr[j], arr[k]]
+        return False, [[], [], []]
+
+
+    four_digit_primes = [i for i in prime_sieve(10000) if len(str(i)) == 4]
+    arr = set()
+    for prime in four_digit_primes:
+        prime_permutations = permutations_that_are_prime(str(prime))
+        is_constant_increase, combination = has_constant_increase(prime_permutations)
+        if is_constant_increase:
+            combination = sorted(combination)
+            for i in range(len(combination)):
+                combination[i] = str(combination[i])
+            result = str()
+            for string in combination:
+                result += string
+            if len(result) == 12 and result != "148748178147":
+                return result
+    #296962999629
+    #0.03989219665527344
+
+
+def euler_50():
+    """
+    Consecutive prime sum
+    Problem 50
+    The prime 41, can be written as the sum of six consecutive primes:
+
+    41 = 2 + 3 + 5 + 7 + 11 + 13
+    This is the longest sum of consecutive primes that adds to a prime below one-hundred.
+    The longest sum of consecutive primes below one-thousand that adds to a prime, 
+    contains 21 terms, and is equal to 953.
+
+    Which prime, below one-million, can be written as the sum of the most consecutive primes?
+    """
+    primes = sorted(prime_sieve(1_000_000))
+    sum = 0
+    for i in range(len(primes)):
+        if sum < 1_000_000:
+            sum += primes[i]
+            last_used_i = i
+    
+    i = -1
+    while not is_prime(sum) or sum > 1_000_000:
+        i += 1
+        sum -= primes[i]
+        
+    #print(sum(primes[i: last_used_i]))
+    return sum, is_prime(sum)
 
 if __name__ == "__main__":
+    system("cls")
     start = time()
-    print(euler_47())
+    print(euler_50())
     end = time()
     print(end - start)
