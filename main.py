@@ -1288,24 +1288,47 @@ def euler_50():
 
     Which prime, below one-million, can be written as the sum of the most consecutive primes?
     """
-    primes = sorted(prime_sieve(1_000_000))
-    total = 0
+    primes = prime_sieve(1_000_000)
+    max_total = 0
+    biggest_length = 0
     for i in range(len(primes)):
-        if total < 1_000_000:
-            total += primes[i]
-            last_used_i = i
-    
-    i = -1
-    while not is_prime(total) or total > 1_000_000:
-        i += 1
-        total -= primes[i]
-        
-    print(sum(primes[i: last_used_i + 1]))
-    return total, is_prime(total)
+        j = i
+        total = primes[j]
+        while total <= primes[-1] and j < len(primes) - 1:
+            if j - i > biggest_length and total in primes:
+                biggest_length = j - i
+                max_total = total
+                
+            j += 1
+            total += primes[j]
+            
+    return max_total
+    #997651
+    #0.8868944644927979
 
+def euler_51():
+    """
+    Prime digit replacements
+    Problem 51
+    By replacing the 1st digit of the 2-digit number *3, it turns out that six of the nine
+    possible values: 13, 23, 43, 53, 73, and 83, are all prime.
+    By replacing the 3rd and 4th digits of 56**3 with the same digit, this 5-digit number
+    is the first example having seven primes among the ten generated numbers, yielding the
+    family: 56003, 56113, 56333, 56443, 56663, 56773, and 56993. Consequently 56003, being
+    the first member of this family, is the smallest prime with this property.
+    Find the smallest prime which, by replacing part of the number (not necessarily adjacent
+    digits) with the same digit, is part of an eight prime value family.
+    """
+    primes = prime_sieve(100_000)
+    found = False
+    index = 0
+    while not found:
+        for number_to_replace_with in range(10):
+            pass
+    
 if __name__ == "__main__":
     system("cls")
     start = time()
-    print(euler_50())
+    print(euler_51())
     end = time()
     print(end - start)

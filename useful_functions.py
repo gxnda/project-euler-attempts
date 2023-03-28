@@ -2,16 +2,17 @@ from itertools import permutations
 from math import sqrt, ceil
 
 
-def is_prime(num) -> bool:
+def is_prime(num: int) -> bool:
     num = abs(num)
-    loop = 2
-    if num < loop:
+    factor = 2
+    if num < factor:
         return False
-    while loop**2 < num + 1:
-        if num % loop == 0:
+    while factor**2 < num + 1:
+        if num % factor == 0:
             return False
-        loop += 1
+        factor += 1
     return True
+
 
 
 def prime_sieve(limit):
