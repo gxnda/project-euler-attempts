@@ -162,3 +162,19 @@ def is_hexagonal(num):
         return True
     else:
         return False
+
+
+def get_distinct_prime_factors(num):
+    factors = [i for i in get_factors(num) if is_prime(i)]
+    return factors
+
+
+def is_permutation_of(possible_perm: str, original: str) -> bool:
+    if len(possible_perm) != len(original):
+        return False
+    possible_perm_set = set(possible_perm)
+    original_set = set(original)
+    intersection = possible_perm_set & original_set
+    if len(intersection) == len(possible_perm_set):
+        return True
+    return False
