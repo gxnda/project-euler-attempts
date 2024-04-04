@@ -14,13 +14,11 @@ def is_prime(num: int) -> bool:
     return True
 
 
-
 def prime_sieve(limit):
     prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
     while p**2 <= limit:
-        print
         if prime[p]:
             for i in range(p * p, limit + 1, p):
                 prime[i] = False
@@ -37,14 +35,12 @@ def prime_sieve_and_pandigital(limit):
     finalised = []
     p = 2
     while p**2 <= limit:
-        print
         if prime[p]:
             for i in range(p * p, limit + 1, p):
                 prime[i] = False
         p += 1
     for i in range(2, len(prime)):
         if prime[i] and is_pandigital(str(i)):
-            print(i)
             finalised.append(i)
 
     return finalised  # returns list
