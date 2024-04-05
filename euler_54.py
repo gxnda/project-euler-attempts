@@ -20,27 +20,25 @@ class Card:
 
         self.value: int = int(value)
         self.suit: str = identifier[1]
-        self.identifer = identifier
+        self.identifier = identifier
 
     def __str__(self):
-        return self.identifer
+        return self.identifier
 
 
 class Hand:
-    def __init__(self, cards: list[Card], owner: int) -> None:
+    def __init__(self, cards: list[Card]) -> None:
         self.cards: list[Card] = cards
-        self.owner: int = owner
 
-    def __remove_card(self, suit, value):
-        values = [card.value for card in self.cards]
-
-
-    def __has_x_of_y_size_tuple(self, x, y, values=None):
+    def __has_x_of_y_size_tuple(self, x, y, values=None, values_to_exclude: list | None = None):
         """
         Returns if the user has e.g. "2" of a pair of size "2".
         """
         if not values:
             values = sorted([card.value for card in self.cards])
+
+        if not values_to_exclude:
+            values_to_exclude = []
 
         count_dict = {}
         for val in values:
@@ -52,12 +50,12 @@ class Hand:
         def pair_filter(key):
             return count_dict[key] == y
 
-        # filter for pairs
+        # filter for pairs of size y
         filtered = list(filter(pair_filter, count_dict))
 
         highest = None
         if filtered:
-            highest = max(filtered)
+            highest = max([i for i in filtered if i not in values_to_exclude])
 
         return len(filtered) == x, highest
 
@@ -105,48 +103,119 @@ class Hand:
 
     def has_full_house(self):
         has_pair, has_pair_with = self.__has_x_of_y_size_tuple(1, 2)
-    
-    def get_highest_card(self) -> int:
-        return max([card.value for card in self.cards])
+        has_three, has_three_with = False, None
+        if has_pair:
+            has_three, has_three_with = self.__has_x_of_y_size_tuple(1, 3, values_to_exclude=[has_pair_with])
+
+        has_full_house_with = None
+        has_full_house = has_pair and has_three
+        if has_full_house:
+            has_full_house_with = has_three_with
+
+        return has_full_house, has_full_house_with
+
+    def get_highest_card(self, to_exclude: list[int] = None) -> int:
+        if not to_exclude:
+            to_exclude = []
+        return max([card.value for card in self.cards if card.value not in to_exclude])
 
     def get_hand_ranking(self) -> tuple[str, int | None]:
         if self.has_royal_flush():
             return "royal flush", None
         
-        elif self.has_straight_flush():
+        elif self.has_straight_flush()[0]:
             return "straight flush", self.has_straight_flush()[1]
         
-        elif self.has_four_of_a_kind():
+        elif self.has_four_of_a_kind()[0]:
             return "four of a kind", self.has_four_of_a_kind()[1]
         
         # full house
-        elif self.has_full_house():
-            pass
+        elif self.has_full_house()[0]:
+            return "full house", self.has_full_house()[1]
         
         # flush
-        elif self.has_flush():
+        elif self.has_flush()[0]:
             return "flush", self.has_flush()[1]
         
         # straight
-        elif self.has_straight():
+        elif self.has_straight()[0]:
             return "straight", self.has_straight()[1]
         
         # three of a kind
-        elif self.has_three_of_a_kind():
+        elif self.has_three_of_a_kind()[0]:
             return "three of a kind", self.has_three_of_a_kind()[1]
         
         # 2 pairs
-        elif self.has_two_pair():
-            pass
+        elif self.has_two_pair()[0]:
+            return "two pair", self.has_two_pair()[1]
         
         # pair
-        elif self.has_pair():
+        elif self.has_pair()[0]:
             return "pair", self.has_pair()[1]
         
         # high card
         else:
             return "high card", self.get_highest_card()
 
+    @classmethod
+    def load_hand_from_string(cls, hand_str: str):
+        cards = [Card(i) for i in hand_str.split()]
+        return Hand(cards=cards)
+
+
+class Round:
+    def __init__(self, hand_1: Hand, hand_2: Hand):
+        self.hand_1 = hand_1
+        self.hand_2 = hand_2
+        self.__hand_rankings = {
+            "royal flush": 1,
+            "straight flush": 2,
+            "four of a kind": 3,
+            "full house": 4,
+            "flush": 5,
+            "straight": 6,
+            "three of a kind": 7,
+            "two pair": 8,
+            "pair": 9,
+            "high card": 10
+        }
+
+    def compare_highest_cards(self):
+        winner_determined = False
+        checked_values = []
+        while not winner_determined:
+            hand_1_highest = self.hand_1.get_highest_card(to_exclude=checked_values)
+            hand_2_highest = self.hand_2.get_highest_card(to_exclude=checked_values)
+            if hand_1_highest not in checked_values:
+                checked_values.append(hand_1_highest)
+            if hand_2_highest not in checked_values:
+                checked_values.append(hand_2_highest)
+            if hand_1_highest > hand_2_highest:
+                return 1
+            elif hand_2_highest > hand_1_highest:
+                return 2
+            if len(checked_values) >= len(set([card.value for card in self.hand_1.cards]) | set([card.value for card in self.hand_2.cards])):
+                return 0
+
+
+
+    def calculate_winner(self) -> int:
+        hand_1_result, hand_1_result_with = self.hand_1.get_hand_ranking()
+        hand_1_ranking = self.__hand_rankings[hand_1_result]
+        hand_2_result, hand_2_result_with = self.hand_2.get_hand_ranking()
+        hand_2_ranking = self.__hand_rankings[hand_2_result]
+
+        # rankings are 1st 2nd etc
+        if hand_1_ranking < hand_2_ranking:
+            return 1
+        elif hand_1_ranking > hand_2_ranking:
+            return 2
+        elif hand_1_result_with > hand_2_result_with:
+            return 1
+        elif hand_1_result_with < hand_2_result_with:
+            return 2
+        else:
+            return self.compare_highest_cards()
 
 
 def euler_54():
@@ -218,10 +287,35 @@ def euler_54():
     """
     pass
 
+def get_all_poker_hands(filename="poker.txt"):
+    all_rounds: list[Round] = []
+    with open(filename) as f:
+        rounds = [i.split() for i in f.readlines()]
+        for round in rounds:
+            first_5: list[str] = round[:5]
+            assert len(first_5) == 5
+            last_5: list[str] = round[5:]
+            assert len(last_5) == 5
+            card_list_1 = [Card(i) for i in first_5]
+            card_list_2 = [Card(i) for i in last_5]
+            hand_1 = Hand(card_list_1)
+            hand_2 = Hand(card_list_2)
+            round = Round(hand_1, hand_2)
+            all_rounds.append(round)
+
+    return all_rounds
+
+
+
+
 
 if __name__ == "__main__":
-    c1, c2, c3, c4, c5 = Card("JD"), Card("JH"), Card("QS"), Card("QC"), Card("KD")
-    hand = Hand(cards=[c1, c2, c3, c4, c5], owner=1)
-    print(hand.has_flush())
-    print(hand.has_royal_flush())
-    print(hand.has_two_pair())
+    all_rounds = get_all_poker_hands()
+    count = 0
+    for round in all_rounds:
+        winner = round.calculate_winner()
+        if winner == 1:
+            count += 1
+
+    print(count)
+
