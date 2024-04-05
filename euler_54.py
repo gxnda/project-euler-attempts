@@ -31,6 +31,36 @@ class Hand:
         self.cards: list[Card] = cards
         self.owner: int = owner
 
+    def __remove_card(self, suit, value):
+        values = [card.value for card in self.cards]
+
+
+    def __has_x_of_y_size_tuple(self, x, y, values=None):
+        """
+        Returns if the user has e.g. "2" of a pair of size "2".
+        """
+        if not values:
+            values = sorted([card.value for card in self.cards])
+
+        count_dict = {}
+        for val in values:
+            if val in count_dict:
+                count_dict[val] += 1
+            else:
+                count_dict[val] = 1
+
+        def pair_filter(key):
+            return count_dict[key] == y
+
+        # filter for pairs
+        filtered = list(filter(pair_filter, count_dict))
+
+        highest = None
+        if filtered:
+            highest = max(filtered)
+
+        return len(filtered) == x, highest
+
     def has_flush(self) -> tuple[bool, int]:
         suits = [card.suit for card in self.cards]
         highest_value = max(card.value for card in self.cards)
@@ -62,50 +92,26 @@ class Hand:
 
     def has_pair(self) -> tuple[bool, int | None]:
         """Finds the highest pair in the hand"""
-        values = sorted([card.value for card in self.cards])
-        count_dict = {}
-        for val in values:
-            if val in count_dict:
-                count_dict[val] += 1
-            else:
-                count_dict[val] = 1
+        return self.__has_x_of_y_size_tuple(1, 2)
 
-        for key in list(count_dict.keys())[::-1]:
-            if count_dict[key] >= 2:
-                return True, key
+    def has_two_pair(self) -> tuple[bool, int | None]:
+        return self.__has_x_of_y_size_tuple(2, 2)
 
     def has_three_of_a_kind(self) -> tuple[bool, int | None]:
-        values = sorted([card.value for card in self.cards])
-        count_dict = {}
-        for val in values:
-            if val in count_dict:
-                count_dict[val] += 1
-            else:
-                count_dict[val] = 1
-
-        for key in list(count_dict.keys())[::-1]:
-            if count_dict[key] >= 3:
-                return True, key
+        return self.__has_x_of_y_size_tuple(1, 3)
 
     def has_four_of_a_kind(self) -> tuple[bool, int | None]:
-        values = sorted([card.value for card in self.cards])
-        count_dict = {}
-        for val in values:
-            if val in count_dict:
-                count_dict[val] += 1
-            else:
-                count_dict[val] = 1
+        return self.__has_x_of_y_size_tuple(1, 4)
 
-        for key in list(count_dict.keys())[::-1]:
-            if count_dict[key] >= 4:
-                return True, key
+    def has_full_house(self):
+        has_pair, has_pair_with = self.__has_x_of_y_size_tuple(1, 2)
     
     def get_highest_card(self) -> int:
         return max([card.value for card in self.cards])
 
-    def get_hand_ranking(self):
+    def get_hand_ranking(self) -> tuple[str, int | None]:
         if self.has_royal_flush():
-            return "royal flush"
+            return "royal flush", None
         
         elif self.has_straight_flush():
             return "straight flush", self.has_straight_flush()[1]
@@ -135,17 +141,12 @@ class Hand:
         
         # pair
         elif self.has_pair():
-            pass
+            return "pair", self.has_pair()[1]
         
         # high card
         else:
             return "high card", self.get_highest_card()
 
-    def has_two_pair(self):
-        pass
-
-    def has_full_house(self):
-        pass
 
 
 def euler_54():
@@ -219,8 +220,8 @@ def euler_54():
 
 
 if __name__ == "__main__":
-    # c1, c2, c3, c4, c5 = Card("JD"), Card("TD"), Card("QD"), Card("KD"), Card("AD")
-    # hand = Hand(cards=[c1, c2, c3, c4, c5], owner=1)
-    # print(hand.has_flush())
-    # print(hand.has_royal_flush())
-    pass
+    c1, c2, c3, c4, c5 = Card("JD"), Card("JH"), Card("QS"), Card("QC"), Card("KD")
+    hand = Hand(cards=[c1, c2, c3, c4, c5], owner=1)
+    print(hand.has_flush())
+    print(hand.has_royal_flush())
+    print(hand.has_two_pair())
