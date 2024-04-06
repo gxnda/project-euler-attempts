@@ -175,3 +175,7 @@ def is_permutation_of(possible_perm: str, original: str) -> bool:
     if len(intersection) == len(possible_perm_set):
         return True
     return False
+
+
+def is_palindromic(string: str) -> bool:
+    return string == string[::-1]
