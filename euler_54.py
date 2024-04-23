@@ -1,5 +1,3 @@
-
-
 class Card:
     def __init__(self, identifier: str):
         """
@@ -122,37 +120,37 @@ class Hand:
     def get_hand_ranking(self) -> tuple[str, int | None]:
         if self.has_royal_flush():
             return "royal flush", None
-        
+
         elif self.has_straight_flush()[0]:
             return "straight flush", self.has_straight_flush()[1]
-        
+
         elif self.has_four_of_a_kind()[0]:
             return "four of a kind", self.has_four_of_a_kind()[1]
-        
+
         # full house
         elif self.has_full_house()[0]:
             return "full house", self.has_full_house()[1]
-        
+
         # flush
         elif self.has_flush()[0]:
             return "flush", self.has_flush()[1]
-        
+
         # straight
         elif self.has_straight()[0]:
             return "straight", self.has_straight()[1]
-        
+
         # three of a kind
         elif self.has_three_of_a_kind()[0]:
             return "three of a kind", self.has_three_of_a_kind()[1]
-        
+
         # 2 pairs
         elif self.has_two_pair()[0]:
             return "two pair", self.has_two_pair()[1]
-        
+
         # pair
         elif self.has_pair()[0]:
             return "pair", self.has_pair()[1]
-        
+
         # high card
         else:
             return "high card", self.get_highest_card()
@@ -194,10 +192,9 @@ class Round:
                 return 1
             elif hand_2_highest > hand_1_highest:
                 return 2
-            if len(checked_values) >= len(set([card.value for card in self.hand_1.cards]) | set([card.value for card in self.hand_2.cards])):
+            if len(checked_values) >= len(
+                    set([card.value for card in self.hand_1.cards]) | set([card.value for card in self.hand_2.cards])):
                 return 0
-
-
 
     def calculate_winner(self) -> int:
         hand_1_result, hand_1_result_with = self.hand_1.get_hand_ranking()
@@ -287,6 +284,7 @@ def euler_54():
     """
     pass
 
+
 def get_all_poker_hands(filename="poker.txt"):
     all_rounds: list[Round] = []
     with open(filename) as f:
@@ -306,9 +304,6 @@ def get_all_poker_hands(filename="poker.txt"):
     return all_rounds
 
 
-
-
-
 if __name__ == "__main__":
     all_rounds = get_all_poker_hands()
     count = 0
@@ -318,4 +313,3 @@ if __name__ == "__main__":
             count += 1
 
     print(count)
-

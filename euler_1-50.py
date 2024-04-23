@@ -6,10 +6,12 @@ I finished snakify.org, so I knew nothing about variable naming et cetera.
 - Gabriel Lancaster-West
 """
 
-from useful_functions import *
 from math import sqrt, factorial, ceil, floor
-from time import time
 from os import system
+from time import time
+
+from useful_functions import *
+
 
 def euler_1():
     """Multiples of 3 or 5"""
@@ -61,7 +63,6 @@ def euler_4():
 
 
 def euler_5():
-
     primes = []
     for i in range(20):
         if is_prime(i) and i > 1:
@@ -146,88 +147,87 @@ def euler_10():
 
 
 def euler_11():
-
     def grid():
         return [[
             '08', '02', '22', '97', '38', '15', '00', '40', '00', '75', '04',
             '05', '07', '78', '52', '12', '50', '77', '91', '08'
         ],
-                [
-                    '49', '49', '99', '40', '17', '81', '18', '57', '60', '87',
-                    '17', '40', '98', '43', '69', '48', '04', '56', '62', '00'
-                ],
-                [
-                    '81', '49', '31', '73', '55', '79', '14', '29', '93', '71',
-                    '40', '67', '53', '88', '30', '03', '49', '13', '36', '65'
-                ],
-                [
-                    '52', '70', '95', '23', '04', '60', '11', '42', '69', '24',
-                    '68', '56', '01', '32', '56', '71', '37', '02', '36', '91'
-                ],
-                [
-                    '22', '31', '16', '71', '51', '67', '63', '89', '41', '92',
-                    '36', '54', '22', '40', '40', '28', '66', '33', '13', '80'
-                ],
-                [
-                    '24', '47', '32', '60', '99', '03', '45', '02', '44', '75',
-                    '33', '53', '78', '36', '84', '20', '35', '17', '12', '50'
-                ],
-                [
-                    '32', '98', '81', '28', '64', '23', '67', '10', '26', '38',
-                    '40', '67', '59', '54', '70', '66', '18', '38', '64', '70'
-                ],
-                [
-                    '67', '26', '20', '68', '02', '62', '12', '20', '95', '63',
-                    '94', '39', '63', '08', '40', '91', '66', '49', '94', '21'
-                ],
-                [
-                    '24', '55', '58', '05', '66', '73', '99', '26', '97', '17',
-                    '78', '78', '96', '83', '14', '88', '34', '89', '63', '72'
-                ],
-                [
-                    '21', '36', '23', '09', '75', '00', '76', '44', '20', '45',
-                    '35', '14', '00', '61', '33', '97', '34', '31', '33', '95'
-                ],
-                [
-                    '78', '17', '53', '28', '22', '75', '31', '67', '15', '94',
-                    '03', '80', '04', '62', '16', '14', '09', '53', '56', '92'
-                ],
-                [
-                    '16', '39', '05', '42', '96', '35', '31', '47', '55', '58',
-                    '88', '24', '00', '17', '54', '24', '36', '29', '85', '57'
-                ],
-                [
-                    '86', '56', '00', '48', '35', '71', '89', '07', '05', '44',
-                    '44', '37', '44', '60', '21', '58', '51', '54', '17', '58'
-                ],
-                [
-                    '19', '80', '81', '68', '05', '94', '47', '69', '28', '73',
-                    '92', '13', '86', '52', '17', '77', '04', '89', '55', '40'
-                ],
-                [
-                    '04', '52', '08', '83', '97', '35', '99', '16', '07', '97',
-                    '57', '32', '16', '26', '26', '79', '33', '27', '98', '66'
-                ],
-                [
-                    '88', '36', '68', '87', '57', '62', '20', '72', '03', '46',
-                    '33', '67', '46', '55', '12', '32', '63', '93', '53', '69'
-                ],
-                [
-                    '04', '42', '16', '73', '38', '25', '39', '11', '24', '94',
-                    '72', '18', '08', '46', '29', '32', '40', '62', '76', '36'
-                ],
-                [
-                    '20', '69', '36', '41', '72', '30', '23', '88', '34', '62',
-                    '99', '69', '82', '67', '59', '85', '74', '04', '36', '16'
-                ],
-                [
-                    '20', '73', '35', '29', '78', '31', '90', '01', '74', '31',
-                    '49', '71', '48', '86', '81', '16', '23', '57', '05', '54'
-                ],
-                [
-                    '01', '70', '54', '71', '83', '51', '54', '69', '16', '92',
-                    '33', '48', '61', '43', '52', '01', '89', '19', '67', '48'
-                ]]
+            [
+                '49', '49', '99', '40', '17', '81', '18', '57', '60', '87',
+                '17', '40', '98', '43', '69', '48', '04', '56', '62', '00'
+            ],
+            [
+                '81', '49', '31', '73', '55', '79', '14', '29', '93', '71',
+                '40', '67', '53', '88', '30', '03', '49', '13', '36', '65'
+            ],
+            [
+                '52', '70', '95', '23', '04', '60', '11', '42', '69', '24',
+                '68', '56', '01', '32', '56', '71', '37', '02', '36', '91'
+            ],
+            [
+                '22', '31', '16', '71', '51', '67', '63', '89', '41', '92',
+                '36', '54', '22', '40', '40', '28', '66', '33', '13', '80'
+            ],
+            [
+                '24', '47', '32', '60', '99', '03', '45', '02', '44', '75',
+                '33', '53', '78', '36', '84', '20', '35', '17', '12', '50'
+            ],
+            [
+                '32', '98', '81', '28', '64', '23', '67', '10', '26', '38',
+                '40', '67', '59', '54', '70', '66', '18', '38', '64', '70'
+            ],
+            [
+                '67', '26', '20', '68', '02', '62', '12', '20', '95', '63',
+                '94', '39', '63', '08', '40', '91', '66', '49', '94', '21'
+            ],
+            [
+                '24', '55', '58', '05', '66', '73', '99', '26', '97', '17',
+                '78', '78', '96', '83', '14', '88', '34', '89', '63', '72'
+            ],
+            [
+                '21', '36', '23', '09', '75', '00', '76', '44', '20', '45',
+                '35', '14', '00', '61', '33', '97', '34', '31', '33', '95'
+            ],
+            [
+                '78', '17', '53', '28', '22', '75', '31', '67', '15', '94',
+                '03', '80', '04', '62', '16', '14', '09', '53', '56', '92'
+            ],
+            [
+                '16', '39', '05', '42', '96', '35', '31', '47', '55', '58',
+                '88', '24', '00', '17', '54', '24', '36', '29', '85', '57'
+            ],
+            [
+                '86', '56', '00', '48', '35', '71', '89', '07', '05', '44',
+                '44', '37', '44', '60', '21', '58', '51', '54', '17', '58'
+            ],
+            [
+                '19', '80', '81', '68', '05', '94', '47', '69', '28', '73',
+                '92', '13', '86', '52', '17', '77', '04', '89', '55', '40'
+            ],
+            [
+                '04', '52', '08', '83', '97', '35', '99', '16', '07', '97',
+                '57', '32', '16', '26', '26', '79', '33', '27', '98', '66'
+            ],
+            [
+                '88', '36', '68', '87', '57', '62', '20', '72', '03', '46',
+                '33', '67', '46', '55', '12', '32', '63', '93', '53', '69'
+            ],
+            [
+                '04', '42', '16', '73', '38', '25', '39', '11', '24', '94',
+                '72', '18', '08', '46', '29', '32', '40', '62', '76', '36'
+            ],
+            [
+                '20', '69', '36', '41', '72', '30', '23', '88', '34', '62',
+                '99', '69', '82', '67', '59', '85', '74', '04', '36', '16'
+            ],
+            [
+                '20', '73', '35', '29', '78', '31', '90', '01', '74', '31',
+                '49', '71', '48', '86', '81', '16', '23', '57', '05', '54'
+            ],
+            [
+                '01', '70', '54', '71', '83', '51', '54', '69', '16', '92',
+                '33', '48', '61', '43', '52', '01', '89', '19', '67', '48'
+            ]]
 
     grid = grid()
 
@@ -240,8 +240,8 @@ def euler_11():
                 try:
                     sumx = int(grid_horiz_vert[i][j]) * int(
                         grid_horiz_vert[i][j + 1]) * int(
-                            grid_horiz_vert[i][j + 2]) * int(
-                                grid_horiz_vert[i][j + 3])
+                        grid_horiz_vert[i][j + 2]) * int(
+                        grid_horiz_vert[i][j + 3])
                     if sumx > biggestx:
                         biggestx = sumx
                 except KeyError:
@@ -251,8 +251,8 @@ def euler_11():
                 try:
                     sumy = int(grid_horiz_vert[j][i]) * int(
                         grid_horiz_vert[j][i + 1]) * int(
-                            grid_horiz_vert[j][i + 2]) * int(
-                                grid_horiz_vert[i][i + 3])
+                        grid_horiz_vert[j][i + 2]) * int(
+                        grid_horiz_vert[i][i + 3])
                     if sumy > biggesty:
                         biggesty = sumy
                 except KeyError:
@@ -334,7 +334,6 @@ def euler_11():
 
 
 def euler_12():
-
     def factors(x):
         result = []
         i = 1
@@ -381,7 +380,7 @@ def euler_15():
 
 
 def euler_16():
-    num = str(2**1000)
+    num = str(2 ** 1000)
     total = 0
     for char in num:
         total += int(char)
@@ -436,7 +435,6 @@ def euler_17():
 
 
 def euler_18():
-
     def GenerateTriangle():
         with open("triangle.txt", "rt") as file:
             triangle = (file.read()).split("\n")
@@ -505,7 +503,6 @@ def euler_20():
 
 
 def euler_21():
-
     def FindPrimeProducts(num, prime_sieve_var):
         prime_sieve_var = prime_sieve_var[:num]
         # loop through prime_sieve_var, if % = 0 then its a factor
@@ -550,12 +547,11 @@ def euler_22():
 
 
 def euler_23():
-
     starttime = time()
 
     def IsAbundant(n):
         divisor_sum = 1
-        for i in range(2, int(n**0.5) + 1):
+        for i in range(2, int(n ** 0.5) + 1):
             if n % i == 0:
                 divisor_sum += i
                 if i != n // i:
@@ -593,10 +589,9 @@ def euler_24():
 
 
 def euler_25():
-
     def Fibonacci(n):
         return int(
-            round((((1 + sqrt(5)) / 2)**n - ((1 - sqrt(5)) / 2)**n) // sqrt(5),
+            round((((1 + sqrt(5)) / 2) ** n - ((1 - sqrt(5)) / 2) ** n) // sqrt(5),
                   0))
 
     freq = dict()
@@ -620,7 +615,6 @@ def euler_25():
 
 
 def euler_26():
-
     def BusStop(digit, div):
         # assuming div > 1 and an integer
         result = str()
@@ -652,13 +646,12 @@ def euler_26():
 
 
 def euler_27():
-
     def CycleLength(b2, c2):
         Complete = False
         total = 0
         x = 0
         while not Complete:
-            if not is_prime(x**2 + b2 * x + c2):  # if number isn't prime
+            if not is_prime(x ** 2 + b2 * x + c2):  # if number isn't prime
                 Complete = True  # end cycle and return count
             else:
                 total += 1
@@ -684,7 +677,7 @@ def euler_27():
 def euler_28():
     total = 1
     for sidelength in range(2, 1002):
-        total += 2 * (sidelength**2) - sidelength + 1.5
+        total += 2 * (sidelength ** 2) - sidelength + 1.5
     print(ceil(total))
 
 
@@ -693,17 +686,16 @@ def euler_29():
     results = set()
     for val1 in a:
         for val2 in a:
-            results.add(val1**val2)
+            results.add(val1 ** val2)
     print(len(results))
 
 
 def euler_30():
-
     def CheckSumOfFifthDigits(num_inner):
         num_inner = str(num_inner)
         total_inner = 0
         for digit in num_inner:
-            total_inner += int(digit)**5
+            total_inner += int(digit) ** 5
         if total_inner == int(num_inner):
             return True
         else:
@@ -711,7 +703,7 @@ def euler_30():
 
     starttime = time()
     works = []
-    AllNum = [str(i) for i in range(2, ((9**5) * 6) + 1)]
+    AllNum = [str(i) for i in range(2, ((9 ** 5) * 6) + 1)]
     for num in AllNum:
         if CheckSumOfFifthDigits(num):
             works.append(num)
@@ -809,7 +801,7 @@ def euler_33():
                 new_den = denominator.strip(shared)
                 zeros_in_both_original = "0" in numerator and "0" in denominator
                 if int(new_num) < int(new_den) and "0" not in [
-                        new_num, new_den
+                    new_num, new_den
                 ] and not zeros_in_both_original:
                     if int(numerator) / int(denominator) == int(new_num) / int(
                             new_den):
@@ -855,7 +847,6 @@ def euler_34():
 
 
 def euler_35():
-
     def is_circular_prime(num: int) -> bool:
         all_permutations = [int(j) for j in get_all_rotations(str(num))]
         for num in all_permutations:
@@ -872,7 +863,6 @@ def euler_35():
 
 
 def euler_36():
-
     def IsPalindromic(num):
         num = str(num)
         reversed_num = num[::-1]
@@ -1011,7 +1001,6 @@ def euler_40():
 
 
 def euler_41():
-
     def generate_all_pandigitals(string: str):
         all_permutations = sorted(get_all_permutations(string), reverse=True)
         return [int(i) for i in all_permutations]
@@ -1110,9 +1099,9 @@ def euler_44():
             if k > j:
                 difference = k - j
                 total = k + j
-                if difference < minimum_difference\
-                    and is_pentagonal(difference)\
-                    and is_pentagonal(total):
+                if difference < minimum_difference \
+                        and is_pentagonal(difference) \
+                        and is_pentagonal(total):
                     minimum_difference = difference
                     minimum_nums = [k, j]
 
@@ -1136,12 +1125,12 @@ def euler_45():
     n = 40756
     i = 144
     while True:
-        current_num = i * (2*i - 1)
+        current_num = i * (2 * i - 1)
         if is_pentagonal(current_num):
             return current_num
         i += 1
-    #1533776805
-    #0.0679469108581543
+    # 1533776805
+    # 0.0679469108581543
 
 
 def euler_46():
@@ -1165,21 +1154,21 @@ def euler_46():
     def follows_conjecture(num):
         squares = set()
         i = 0
-        while 2 * (i**2) < num:
+        while 2 * (i ** 2) < num:
             squares.add(2 * (i ** 2))
             i += 1
         for sq in squares:
             if is_prime(num - sq):
                 return True
         return False
-    
+
     i = 9
     while True:
         if not follows_conjecture(i):
             return i
         i += 2
-    #5777
-    #0.0468907356262207
+    # 5777
+    # 0.0468907356262207
 
 
 def euler_47():
@@ -1195,31 +1184,31 @@ def euler_47():
                         print(i + 3, get_distinct_prime_factors(i + 3))
                         return i
         i += 1
-    #134043
-    #6.77611517906189
+    # 134043
+    # 6.77611517906189
 
 
 def euler_48():
     def multiply_last_10_digits(num_1, num_2):
-        num_1 = num_1# % 10_000_000_000
-        num_2 = num_2# % 10_000_000_000
-        return (num_1 * num_2)# % 10_000_000_000
+        num_1 = num_1  # % 10_000_000_000
+        num_2 = num_2  # % 10_000_000_000
+        return (num_1 * num_2)  # % 10_000_000_000
 
     def self_power(num):
         multipland = 1
         for i in range(num):
             multipland = multiply_last_10_digits(multipland, num)
-            multipland = multipland# % 10_000_000_000
+            multipland = multipland  # % 10_000_000_000
         return multipland
 
     sum = 0
     for i in range(1, 1001):
         sum += self_power(i)
-        sum = sum# % 10_000_000_000
+        sum = sum  # % 10_000_000_000
     return str(sum)[-10:]
-    #9110846700
-    #0.16156768798828125
-        
+    # 9110846700
+    # 0.16156768798828125
+
 
 def euler_49():
     """
@@ -1243,19 +1232,18 @@ def euler_49():
         for string in permutations:
             if is_prime(int(string)) and len(string) == 4:
                 nums.add(int(string))
-        
+
         return nums
-    
+
     def has_constant_increase(set_of_nums):
         arr = sorted(set_of_nums)
         for i in range(len(arr)):
-            for j in range(i + 1,len(arr)):
+            for j in range(i + 1, len(arr)):
                 for k in range(j + 1, len(arr)):
                     difference = arr[j] - arr[i]
                     if arr[k] - arr[j] == difference:
                         return True, [arr[i], arr[j], arr[k]]
         return False, [[], [], []]
-
 
     four_digit_primes = [i for i in prime_sieve(10000) if len(str(i)) == 4]
     arr = set()
@@ -1271,8 +1259,8 @@ def euler_49():
                 result += string
             if len(result) == 12 and result != "148748178147":
                 return result
-    #296962999629
-    #0.03989219665527344
+    # 296962999629
+    # 0.03989219665527344
 
 
 def euler_50():
@@ -1298,13 +1286,13 @@ def euler_50():
             if j - i > biggest_length and total in primes:
                 biggest_length = j - i
                 max_total = total
-                
+
             j += 1
             total += primes[j]
-            
+
     return max_total
-    #997651
-    #0.8868944644927979
+    # 997651
+    # 0.8868944644927979
 
 
 if __name__ == "__main__":

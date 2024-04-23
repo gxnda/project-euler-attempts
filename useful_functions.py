@@ -7,7 +7,7 @@ def is_prime(num: int) -> bool:
     factor = 2
     if num < factor:
         return False
-    while factor**2 < num + 1:
+    while factor ** 2 < num + 1:
         if num % factor == 0:
             return False
         factor += 1
@@ -18,7 +18,7 @@ def prime_sieve(limit):
     prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
-    while p**2 <= limit:
+    while p ** 2 <= limit:
         if prime[p]:
             for i in range(p * p, limit + 1, p):
                 prime[i] = False
@@ -34,7 +34,7 @@ def prime_sieve_and_pandigital(limit):
     prime = [True for _ in range(limit + 1)]
     finalised = []
     p = 2
-    while p**2 <= limit:
+    while p ** 2 <= limit:
         if prime[p]:
             for i in range(p * p, limit + 1, p):
                 prime[i] = False
@@ -49,7 +49,7 @@ def prime_sieve_and_pandigital(limit):
 def get_factors_dict(num):
     n = 1
     factors = dict()
-    while n**2 <= num:
+    while n ** 2 <= num:
         if num % n == 0 and not (n in factors or num // n in factors):
             factors[n] = num // n
         n += 1
@@ -59,7 +59,7 @@ def get_factors_dict(num):
 def get_factors(num) -> set:
     n = 1
     factors = set()
-    while n**2 <= num:
+    while n ** 2 <= num:
         if num % n == 0:
             factors.add(n)
             factors.add(num // n)
@@ -104,8 +104,8 @@ def generate_pythagorean_triples(limit: int):
     upper_bound_for_side = ceil(sqrt(limit))
     for a in range(1, upper_bound_for_side):
         for b in range(1, upper_bound_for_side):
-            if a**2 + b**2 <= limit:
-                abc = [abs(a**2 - b**2), 2 * a * b, a**2 + b**2]
+            if a ** 2 + b ** 2 <= limit:
+                abc = [abs(a ** 2 - b ** 2), 2 * a * b, a ** 2 + b ** 2]
                 scalar = 1
                 new_abc = [1, 1, 1]
                 while new_abc[2] <= limit:
@@ -179,3 +179,59 @@ def is_permutation_of(possible_perm: str, original: str) -> bool:
 
 def is_palindromic(string: str) -> bool:
     return string == string[::-1]
+
+
+from math import gcd
+
+
+class Fraction:
+    def __init__(self, numerator: int, denominator: int):
+        self.numerator: int = numerator
+        self.denominator: int = denominator
+        self.simplify()
+
+    def simplify(self):
+        hcf = gcd(self.numerator, self.denominator)
+        self.numerator = self.numerator // hcf
+        self.denominator = self.denominator // hcf
+
+    def approx(self):
+        return self.numerator / self.denominator
+
+    def __add__(self, other):
+        self.simplify()
+        if isinstance(other, int):
+            return Fraction(
+                numerator=self.numerator + other * self.denominator,
+                denominator=self.denominator
+            )
+        elif isinstance(other, Fraction):
+            # a/b + c/d = (ad+bc)/bd
+            return Fraction(
+                numerator=self.numerator * other.denominator + other.numerator * self.denominator,
+                denominator=self.denominator * other.denominator
+            )
+        else:
+            raise ValueError(f"cannot multiply type Fraction with type {type(other)}")
+
+    def __mul__(self, other):
+        if isinstance(other, int):
+            return Fraction(
+                numerator=self.numerator * other,
+                denominator=self.denominator
+            )
+        elif isinstance(other, Fraction):
+            return Fraction(
+                numerator=self.numerator * other.numerator,
+                denominator=self.denominator * other.denominator
+            )
+
+    def __truediv__(self, other):
+        if isinstance(other, int):
+            other = Fraction(other, 1)
+
+        flipped = Fraction(other.denominator, other.numerator)
+        return self * flipped
+
+    def __str__(self):
+        return f"{self.numerator}/{self.denominator}"

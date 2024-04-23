@@ -38,9 +38,6 @@ def get_all_wildcard_permutations(to_be_wildcarded: str):
     return perms
 
 
-
-
-
 def euler_51():
     """
     Prime digit replacements

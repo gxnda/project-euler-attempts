@@ -10,7 +10,7 @@ def euler_53():
     total = 0
     for n in range(1, 101):
         for r in range(n + 1):
-            result = factorial(n) / ((factorial(r)) * factorial(n-r))
+            result = factorial(n) / ((factorial(r)) * factorial(n - r))
             if result > 1_000_000:
                 total += 1
     return total

@@ -8,7 +8,7 @@ def has_identical_digits(int_1: int, int_2: int) -> bool:
         str_1.zfill(len(str_2) - len(str_1))
     elif len(str_1) > len(str_2):
         str_2.zfill(len(str_1) - len(str_2))
-        
+
     arr_1 = [i for i in str_1]
     arr_2 = [i for i in str_2]
     return sorted(arr_1) == sorted(arr_2)

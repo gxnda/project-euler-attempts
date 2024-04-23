@@ -1,5 +1,3 @@
-
-
 def get_digital_sum(num: int):
     return sum([int(i) for i in str(num)])
 
@@ -15,4 +13,3 @@ def euler_56():
 
 if __name__ == "__main__":
     print(euler_56())
-    
