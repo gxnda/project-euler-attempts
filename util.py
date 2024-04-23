@@ -1,5 +1,6 @@
+from fractions import Fraction
 from itertools import permutations
-from math import sqrt, ceil
+from math import sqrt, ceil, gcd
 
 
 def is_prime(num: int) -> bool:
@@ -181,14 +182,17 @@ def is_palindromic(string: str) -> bool:
     return string == string[::-1]
 
 
-from math import gcd
-
-
 class Fraction:
     def __init__(self, numerator: int, denominator: int):
         self.numerator: int = numerator
         self.denominator: int = denominator
         self.simplify()
+
+    def flip(self) -> None:
+        self.numerator, self.denominator = self.denominator, self.numerator
+
+    def flipped(self) -> Fraction:
+        return Fraction(self.denominator, self.numerator)
 
     def simplify(self):
         hcf = gcd(self.numerator, self.denominator)

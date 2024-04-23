@@ -12,8 +12,25 @@ By expanding this for the first four iterations, we get:
 
 The next three expansions are 99/70, 239/169, and 575/408, but the eighth expansion,
 1393/985, is the first example where the number of digits in the numerator exceeds
-the number of digits in the denominatator.
+the number of digits in the denominator.
 
 In the first 1000 expansions, how many fractions contain a numerator with
 more digits than denominator?
 """
+
+from util import Fraction
+
+
+def euler_57():
+    approx = Fraction(1, 1)
+    count = 0
+    for i in range(1000):
+        approx = (approx + 1).flipped() + 1  # 1.5
+        if len(str(approx.numerator)) > len(str(approx.denominator)):
+            count += 1
+
+    return count
+
+
+if __name__ == "__main__":
+    print(euler_57())
