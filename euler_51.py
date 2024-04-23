@@ -1,4 +1,4 @@
-import useful_functions
+import util
 
 
 def get_all_prime_wildcard_permutations(wildcard_num: str, prime_sieve: list[int]) -> list[int]:

@@ -10,7 +10,7 @@ from math import sqrt, factorial, ceil, floor
 from os import system
 from time import time
 
-from useful_functions import *
+from util import *
 
 
 def euler_1():
